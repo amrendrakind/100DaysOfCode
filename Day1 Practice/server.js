@@ -4,35 +4,35 @@ if(process.env.NODE_ENV!=='production'){
     dotenv.config()
 }
 const express = require('express')
+const app=express()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
-const initializePassport = require('./passport.config.js')
+const initializePassport = require('./passport.config')
 const flash = require('express-flash')
 const session = require('express-session')
-
+const methodOverride = require('method-override')
 
 initializePassport(
     passport,
-    email=> users.find(user => user.email===email)
+    email=> users.find(user => user.email===email),
+    id => users.find(user => user.id === id)
 )
-
-
-const app=express()
 
 const users=[]
 
 app.set('view-engine','ejs')
-app.use(express.urlencoded({encoded:false}))
+app.use(express.urlencoded({extended:false}))
 
 app.use(flash())
 app.use(session({
-    secret:process.env.SESSION_SECRECT,
+    secret : process.env.SESSION_SECRET,
     resave :false,
     saveUninitialized :false
 }))
 
-app.use(passport.initialize)
+app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride('_method'))
 
 app.post('/login',passport.authenticate('local',{
     successRedirect:'/',
@@ -43,7 +43,7 @@ app.post('/login',passport.authenticate('local',{
 
 
 app.get('/',(req,res)=>{
-    res.render('index.ejs',{user:'Amrendra K'})
+    res.render('index.ejs',{name:req.user.name})
 })
 
 app.get('/login',(req,res)=>{

@@ -23,4 +23,4 @@ function initialize(passport, getUserByEmail,getUserByID){
     passport.deserializeUser((id, done)=>{return done(null, getUserByID(id))})
 }   
 
-module.exports=initialize
+module.exports = initialize
