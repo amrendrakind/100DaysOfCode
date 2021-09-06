@@ -1,5 +1,10 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
+import passport from 'passport'
+import initializePassport from './passport.config.js'
+initializePassport(passport)
+
+
 const app=express()
 
 const users=[]
@@ -22,7 +27,6 @@ app.get('/register',(req,res)=>{
 app.post('/register', async(req,res)=>{
     
     try {
-        
         const hashedPassword = await bcrypt.hash(req.body.password,10)
         users.push({
             id: Date.now().toString(),
@@ -41,6 +45,5 @@ app.post('/register', async(req,res)=>{
 app.post('/login',(req,res)=>{
 
 })
-
 
 app.listen(4000,console.log("Server started"))
