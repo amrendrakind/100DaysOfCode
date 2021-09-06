@@ -1,15 +1,45 @@
-import express from 'express'
-import bcrypt from 'bcrypt'
-import passport from 'passport'
-import initializePassport from './passport.config.js'
-initializePassport(passport)
+const dotenv =require('dotenv')
+
+if(process.env.NODE_ENV!=='production'){
+    dotenv.config()
+}
+const express = require('express')
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const initializePassport = require('./passport.config.js')
+const flash = require('express-flash')
+const session = require('express-session')
+
+
+initializePassport(
+    passport,
+    email=> users.find(user => user.email===email)
+)
 
 
 const app=express()
 
 const users=[]
+
 app.set('view-engine','ejs')
 app.use(express.urlencoded({encoded:false}))
+
+app.use(flash())
+app.use(session({
+    secret:process.env.SESSION_SECRECT,
+    resave :false,
+    saveUninitialized :false
+}))
+
+app.use(passport.initialize)
+app.use(passport.session())
+
+app.post('/login',passport.authenticate('local',{
+    successRedirect:'/',
+    failureRedirect:'/login',
+    failureFlash: true
+}))
+
 
 
 app.get('/',(req,res)=>{
@@ -42,8 +72,5 @@ app.post('/register', async(req,res)=>{
 //    console.log(users)
 })
 
-app.post('/login',(req,res)=>{
-
-})
 
 app.listen(4000,console.log("Server started"))
