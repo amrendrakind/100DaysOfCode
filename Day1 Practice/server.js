@@ -40,8 +40,6 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
-
-
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.name })
 })
@@ -84,10 +82,12 @@ function checkAuthenticated(req, res, next) {
     res.redirect('/login')
   }
 
-  function checkNotAuthenticated(req, res, next) {
+function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return res.redirect('/')
     }
     next()
   }
+
+  
 app.listen(4000, console.log("Server started"))
