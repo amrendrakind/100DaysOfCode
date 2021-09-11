@@ -1,8 +1,13 @@
+const dotenv =require('dotenv').config()
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require("cors")
-const PORT = process.env.SERVER_PORT || 8080
+
+const dbConfig = require("./config/dbConfig.js");
+
+const PORT = process.env.SERVER_PORT || 4040
+
 
 var corsOptions={ origin : "http://localhost:8081" }
 
@@ -12,7 +17,7 @@ app.use(express.urlencoded({extended: true}))
 
 //Welcome Message
 
-app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's World!!"})})
+app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's Apps!!"})})
 
 
 //app.use("/todo", todosRoutes);            //For todo report by pagination
