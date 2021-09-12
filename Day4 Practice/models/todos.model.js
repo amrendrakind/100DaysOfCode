@@ -1,15 +1,21 @@
 module.exports = (sequelize, Sequelize) => {
    const todoModel = sequelize.define("todoModel", {
+      username: {
+        type: Sequelize.STRING
+      },
       title: {
         type: Sequelize.STRING
       },
-      description: {
+      isComplete: {
+        type: Sequelize.BOOLEAN
+      },
+      status: {
         type: Sequelize.STRING
       },
-      published: {
-        type: Sequelize.BOOLEAN
-      }
+      category: {
+        type: Sequelize.STRING
+      }  
+
     });
-  
     return todoModel;
   };

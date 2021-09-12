@@ -4,7 +4,6 @@ const TodoModel = DB_Todo.TodoModel;
 const Op = DB_Todo.Sequelize.Op;
 
 
-
 //create new todo
 module.exports.createTodo = async (req, res) => {
     try {
