@@ -21,5 +21,5 @@ Fields required in Todo list:
 | Environment  | Framework  |
 |--------------|------------|
 | Backend APIs | Express Js |
-| Database     | PostgreSQL |
-| ORM/ODM      | Sequelize  |
+| Database     | PostgreSQL    |
+| ORM/ODM      | Sequelize   |

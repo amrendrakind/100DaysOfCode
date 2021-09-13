@@ -1,20 +1,28 @@
-const express =require("express")
-const router = express.Router();
-const app = express();
-app.use(express.json());
+module.exports = app => {
+  const todoModel = require("../controllers/todo.controller.js");
 
-const {
-  createTodo,
-  allTodo,
-  todo,
-  updatetodo,
-  deletetodo,
-} =require ("../controllers/todo.controller.js")
+  var router = require("express").Router();
 
-router.post("/add", createTodo);          //Add todos
-//router.get("/alltodos", allTodo);         // Get all todos
-// router.get("/todo/:id", todo);            // get todos by id
-// router.patch("/update/:id", updatetodo);  // update by id
-// router.delete("/delete/:id", deletetodo); //  delete by id 
+  // Insert into a todos list
+  router.post("/", todoModel.create);
 
-module.exports = router
+  // Retrieve all todos data
+  router.get("/", todoModel.findAll);
+
+  // // Retrieve all published Tutorials
+  // router.get("/published", tutorials.findAllPublished);
+
+  // // Retrieve a single Tutorial with id
+  // router.get("/:id", tutorials.findOne);
+
+  // // Update a Tutorial with id
+  // router.put("/:id", tutorials.update);
+
+  // // Delete a Tutorial with id
+  // router.delete("/:id", tutorials.delete);
+
+  // // Delete all Tutorials
+  // router.delete("/", tutorials.deleteAll);
+
+  app.use("/api/todos", router);
+};
