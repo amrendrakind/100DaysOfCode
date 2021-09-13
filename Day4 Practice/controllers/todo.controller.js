@@ -1,3 +1,4 @@
+const { todoModel } = require('../models');
 const DB_Todo = require('../models')
 //const db = require("../models");
 const TodoModel = DB_Todo.TodoModel;
@@ -6,14 +7,32 @@ const Op = DB_Todo.Sequelize.Op;
 
 //create new todo
 module.exports.createTodo = async (req, res) => {
-    try {
-        const newtodo = new TodoModel(req.body);
-        newtodo.save();
-        res.send(newtodo);
-    } catch (err) {
-        res.send({ message: err.message });
-    }
-};
+       
+        // Validate request
+        if (!req.body.username) {
+            res.status(400).send({
+            message: "Content can not be empty!"
+            });
+            return;
+        }
+
+         // Create a todo
+        const todo = {
+            username: req.body.username,
+            title: req.body.title,
+            isComplete: req.body.isComplete ? req.body.isComplete : false,
+            status: req.body.status,
+            category : req.body.category
+        };
+        todoModel.create(todo)
+            .then(data =>{
+                res.send(data)
+            })
+           .catch (err=> {
+        res.status(500).send({ message: 'Some error occured while creating table' ||err.message });
+    })
+}
+
 //fetch all todos
 module.exports.allTodo = async (req, res) => {
 

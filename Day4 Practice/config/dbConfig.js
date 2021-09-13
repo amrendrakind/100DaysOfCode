@@ -1,5 +1,3 @@
-const dotenv =require('dotenv').config()
-
 const postgresql = {
     HOST: "localhost",
     USER: "postgres",
