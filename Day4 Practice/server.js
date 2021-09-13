@@ -16,7 +16,7 @@ db.sequelize.sync();  // Database initialization
 
 //Welcome Message
 
-//app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's Apps!!"})})
+app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's Apps!!"})})
 
 app.use("/todo", todosRoutes);            //For todo report by pagination
 

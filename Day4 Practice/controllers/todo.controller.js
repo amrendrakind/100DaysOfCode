@@ -9,7 +9,7 @@ module.exports.createTodo = async (req, res) => {
             res.status(400).send({
             message: "Content can not be empty!"
             });
-            return;
+     return;
         }
 
          // Create a todo
