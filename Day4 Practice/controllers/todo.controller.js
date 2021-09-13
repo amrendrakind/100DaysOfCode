@@ -1,13 +1,9 @@
-const { todoModel } = require('../models');
-const DB_Todo = require('../models')
-//const db = require("../models");
-const TodoModel = DB_Todo.TodoModel;
-const Op = DB_Todo.Sequelize.Op;
-
+const db = require('../models')
+const todoModel = db.todoModel;
+const Op = db.Sequelize.Op;
 
 //create new todo
 module.exports.createTodo = async (req, res) => {
-       
         // Validate request
         if (!req.body.username) {
             res.status(400).send({
@@ -24,8 +20,11 @@ module.exports.createTodo = async (req, res) => {
             status: req.body.status,
             category : req.body.category
         };
+        console.log(todo)
+
         todoModel.create(todo)
-            .then(data =>{
+            .then(data =>{ 
+                console.log("after create table")
                 res.send(data)
             })
            .catch (err=> {
@@ -33,21 +32,21 @@ module.exports.createTodo = async (req, res) => {
     })
 }
 
-//fetch all todos
-module.exports.allTodo = async (req, res) => {
+// //fetch all todos
+// module.exports.allTodo = async (req, res) => {
 
-    TodoModel.find()
-        // .select("userName todoTitle status category")
-        // .exec()
-        .then((data) => {
-            res.status(200).json(data);
-        })
-        .catch((er) => {
-            res.status(500).json({
-                message: er.message,
-            });
-        });
-};
+//     TodoModel.find()
+//         // .select("userName todoTitle status category")
+//         // .exec()
+//         .then((data) => {
+//             res.status(200).json(data);
+//         })
+//         .catch((er) => {
+//             res.status(500).json({
+//                 message: er.message,
+//             });
+//         });
+// };
 // //search todo by id
 // module.exports.todoByid = async (req, res) => {
 //     TodoModel.findById(req.params.id)
