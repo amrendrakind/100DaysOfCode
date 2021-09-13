@@ -14,10 +14,8 @@ app.use(express.urlencoded({extended: true}))
 
 db.sequelize.sync();  // Database initialization
 
-//Welcome Message
+app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's Apps!!"})})      //Welcome message
 
-//app.get("/",(req,res)=>{res.json({message : "Welcome to Amrendra's Apps!!"})})
+require("./routes/todo.route.js")(app);     
 
-//app.use("/todo", todosRoutes);            //For todo report by pagination
-require("./routes/todo.route.js")(app);
-app.listen(PORT, console.log(`server is running on port ${PORT}`)) 
+app.listen(PORT, console.log(`server is running on port ${PORT}`))      //Server listening

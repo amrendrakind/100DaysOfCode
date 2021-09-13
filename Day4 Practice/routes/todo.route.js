@@ -3,26 +3,12 @@ module.exports = app => {
 
   var router = require("express").Router();
 
-  // Insert into a todos list
-  router.post("/", todoModel.create);
+  router.post("/", todoModel.create)         // Insert single record into a todos list
+  router.get("/", todoModel.findAll)         // Retrieve all todos data
+  router.get("/:id", todoModel.findOne)      // Fetch a single Todo with id
+  router.put("/:id", todoModel.update)       // Update a Todos with id
+  router.delete("/:id", todoModel.delete)    // Delete a Todo with id
+  router.delete("/", todoModel.deleteAll)    // Delete all Todos
 
-  // Retrieve all todos data
-  router.get("/", todoModel.findAll);
-
-  // // Retrieve all published Tutorials
-  // router.get("/published", tutorials.findAllPublished);
-
-  // // Retrieve a single Tutorial with id
-  // router.get("/:id", tutorials.findOne);
-
-  // // Update a Tutorial with id
-  // router.put("/:id", tutorials.update);
-
-  // // Delete a Tutorial with id
-  // router.delete("/:id", tutorials.delete);
-
-  // // Delete all Tutorials
-  // router.delete("/", tutorials.deleteAll);
-
-  app.use("/api/todos", router);
+  app.use("/api/todos", router);             //  Main Router
 };
